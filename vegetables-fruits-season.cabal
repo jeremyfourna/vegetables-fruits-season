@@ -60,8 +60,6 @@ executable vegetables-fruits-season
   build-depends:       base >=4.8 && <4.9
   build-depends:       aeson
   build-depends:       scotty
-  build-depends:       hscuid
-  build-depends:       text
 
   -- Directories containing source files.
   -- hs-source-dirs:

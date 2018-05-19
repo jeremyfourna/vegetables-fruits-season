@@ -5,35 +5,29 @@ module Main where
 
 import Data.Monoid ((<>))
 import Data.Aeson (FromJSON, ToJSON)
-import Data.Text (Text)
 import GHC.Generics
 import Web.Scotty (scotty, get, text, json, param)
-import Web.Cuid (newCuid)
 
-data User = User
-  { userId :: Text
-  , userName :: String
+data Food = Food
+  { foodName :: String
+  , foodCategory :: String
+  , foodAvailability :: [String]
   } deriving (Show, Generic)
-instance ToJSON User
-instance FromJSON User
+instance ToJSON Food
+instance FromJSON Food
 
-bob :: User
-bob = User {
-  userId = newCuid,
-  userName = "bob"
+banane :: Food
+banane = Food {
+  foodName = "Banane",
+  foodCategory = "Fruit",
+  foodAvailability = ["Mai", "Juin"]
 }
 
-jenny :: User
-jenny = User {
-  userId = newCuid,
-  userName = "jenny"
-}
+allFoods :: [Food]
+allFoods = [banane]
 
-allUsers :: [User]
-allUsers = [bob, jenny]
-
-matchesId :: Text -> User -> Bool
-matchesId id user = userId user == id
+matchesName :: String -> Food -> Bool
+matchesName name food = foodName food == name
 
 main = do
   putStrLn "Starting Server..."
@@ -42,10 +36,10 @@ main = do
         name <- param "name"
         text ("hello " <> name <> "!")
 
-    get "/users" $ do
-      json allUsers
+    get "/foods" $ do
+      json allFoods
 
-    get "/users/:id" $ do
-      id <- param "id"
-      json (filter (matchesId id) allUsers)
+    get "/foods/:name" $ do
+      name <- param "name"
+      json (filter (matchesName name) allFoods)
 
