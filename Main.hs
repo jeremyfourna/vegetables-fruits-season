@@ -7,27 +7,15 @@ import Data.Monoid ((<>))
 import Data.Aeson (FromJSON, ToJSON)
 import GHC.Generics
 import Web.Scotty (scotty, get, text, json, param)
+import Foods (vegetables, matchesName, matchesMonth, Food, Month)
 
-data Food = Food
-  { foodName :: String
-  , foodCategory :: String
-  , foodAvailability :: [String]
-  } deriving (Show, Generic)
 instance ToJSON Food
 instance FromJSON Food
-
-banane :: Food
-banane = Food {
-  foodName = "Banane",
-  foodCategory = "Fruit",
-  foodAvailability = ["Mai", "Juin"]
-}
+instance ToJSON Month
+instance FromJSON Month
 
 allFoods :: [Food]
-allFoods = [banane]
-
-matchesName :: String -> Food -> Bool
-matchesName name food = foodName food == name
+allFoods = vegetables
 
 main = do
   putStrLn "Starting Server..."
@@ -42,4 +30,8 @@ main = do
     get "/foods/:name" $ do
       name <- param "name"
       json (filter (matchesName name) allFoods)
+
+    get "/month/:name" $ do
+      name <- param "name"
+      json (filter (matchesMonth name) allFoods)
 
