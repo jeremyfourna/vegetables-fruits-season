@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module Foods where
+module Web.Data.Foods where
 
 import GHC.Generics
 
