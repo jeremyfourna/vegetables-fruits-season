@@ -13,16 +13,13 @@ module Lib
 import Data.Aeson (FromJSON, ToJSON)
 import GHC.Generics
 import Web.Home (homePage)
-import Web.Data.Foods (vegetables, matchesName, matchesMonth, Food, Month)
+import Web.Data.Foods (Food, Month, allFoods, vegetables, matchesName, matchesMonth)
 import Web.Scotty (ScottyM, get, html, json, param)
 
 instance ToJSON Food
 instance FromJSON Food
 instance ToJSON Month
 instance FromJSON Month
-
-allFoods :: [Food]
-allFoods = vegetables
 
 home :: ScottyM ()
 home = get "/" homePage

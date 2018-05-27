@@ -11,11 +11,11 @@ import Text.Blaze.Html5.Attributes (charset, class_, content, href, httpEquiv, i
 import Text.Blaze.Internal (Attribute, AttributeValue, MarkupM( Leaf ), attribute)
 import Web.Components (navBar)
 import Web.Layout (layout)
-import Web.Utils (blaze, pet)
+import Web.Utils (blaze, currentDate)
 import Web.Scotty (ActionM)
 
 homePage :: ActionM ()
-homePage = blaze $ layout "Starter kit with Scotty and Bootstrap v4" $ do
+homePage = blaze $ layout "Seasonal vegetables and fruits" $ do
     div ! class_ "container" $ do
       div ! class_ "jumbotron" $ do
         h1 "Scotty Starter"

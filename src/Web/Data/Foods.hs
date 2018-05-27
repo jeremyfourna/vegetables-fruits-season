@@ -10,6 +10,10 @@ data Food = Food
   , foodAvailability :: [Month]
   } deriving (Show, Generic)
 
+
+allFoods :: [Food]
+allFoods = vegetables
+
 matchesName :: String -> Food -> Bool
 matchesName name food = foodName food == name
 
