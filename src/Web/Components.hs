@@ -33,76 +33,78 @@ spanL = Leaf "span" "<span" ">" ()
 navBar :: Html
 navBar =
   nav ! class_ "navbar navbar-expand-lg navbar-light bg-light" $ do
-    a
-      ! class_ "navbar-brand"
-      ! href "#" $ "Navbar"
-    button
-      ! ariaControls "navbarSupportedContent"
-      ! ariaExpanded "false"
-      ! ariaLabel "Toggle navigation"
-      ! class_ "navbar-toggler"
-      ! dataAttribute "toggle" "collapse"
-      ! dataAttribute "target" "#navbarSupportedContent"
-      ! type_ "button" $ do
-        spanL ! class_ "navbar-toggler-icon"
-    div
-      ! class_ "collapse navbar-collapse"
-      ! id "navbarSupportedContent" $ do
-        ul ! class_ "navbar-nav mr-auto" $ do
-          li ! class_ "nav-item active" $
-            a
-              ! class_ "nav-link"
-              ! href "/" $ "Home"
-          li ! class_ "nav-item" $
-            a
-              ! class_ "nav-link"
-              ! href "/foods" $ "All foods"
-          li ! class_ "nav-item dropdown" $ do
-            a
-              ! class_ "nav-link dropdown-toggle"
-              ! href "#"
-              ! id "navbarDropdown"
-              ! dataAttribute "toggle" "dropdown"
-              ! ariaExpanded "false"
-              ! ariaHasPopup "true" $ "Dropdown"
-            div
-              ! class_ "dropdown-menu"
-              ! ariaLabelledBy "navbarDropdown" $ do
-                a
-                  ! class_ "dropdown-item"
-                  ! href "#" $ "Action"
-                a
-                  ! class_ "dropdown-item"
-                  ! href "#" $ "Another action"
-                div ! class_ "dropdown-divider" $ ""
-                a
-                  ! class_ "dropdown-item"
-                  ! href "#" $ "Something else here"
-          li ! class_ "nav-item" $ do
-            a
-              ! class_ "nav-link disabled"
-              ! href "#" $ "Disabled"
-        form
-          ! class_ "form-inline my-2 my-lg-0"
-          ! action "/search"
-          ! method "GET" $ do
-            input
-              ! class_ "form-control mr-sm-2"
-              ! type_ "search"
-              ! placeholder "Search"
-              ! ariaLabel "Search"
-              ! name "name"
-            button
-              ! class_ "btn btn-outline-success my-2 my-sm-0"
-              ! type_ "submit" $ "Search"
+    div ! class_ "container" $ do
+      a
+        ! class_ "navbar-brand"
+        ! href "#" $ "Navbar"
+      button
+        ! ariaControls "navbarSupportedContent"
+        ! ariaExpanded "false"
+        ! ariaLabel "Toggle navigation"
+        ! class_ "navbar-toggler"
+        ! dataAttribute "toggle" "collapse"
+        ! dataAttribute "target" "#navbarSupportedContent"
+        ! type_ "button" $ do
+          spanL ! class_ "navbar-toggler-icon"
+      div
+        ! class_ "collapse navbar-collapse"
+        ! id "navbarSupportedContent" $ do
+          ul ! class_ "navbar-nav mr-auto" $ do
+            li ! class_ "nav-item active" $
+              a
+                ! class_ "nav-link"
+                ! href "/" $ "Home"
+            li ! class_ "nav-item" $
+              a
+                ! class_ "nav-link"
+                ! href "/foods" $ "All foods"
+            li ! class_ "nav-item dropdown" $ do
+              a
+                ! class_ "nav-link dropdown-toggle"
+                ! href "#"
+                ! id "navbarDropdown"
+                ! dataAttribute "toggle" "dropdown"
+                ! ariaExpanded "false"
+                ! ariaHasPopup "true" $ "Dropdown"
+              div
+                ! class_ "dropdown-menu"
+                ! ariaLabelledBy "navbarDropdown" $ do
+                  a
+                    ! class_ "dropdown-item"
+                    ! href "#" $ "Action"
+                  a
+                    ! class_ "dropdown-item"
+                    ! href "#" $ "Another action"
+                  div ! class_ "dropdown-divider" $ ""
+                  a
+                    ! class_ "dropdown-item"
+                    ! href "#" $ "Something else here"
+            li ! class_ "nav-item" $ do
+              a
+                ! class_ "nav-link disabled"
+                ! href "#" $ "Disabled"
+          form
+            ! class_ "form-inline my-2 my-lg-0"
+            ! action "/search"
+            ! method "GET" $ do
+              input
+                ! class_ "form-control mr-sm-2"
+                ! type_ "search"
+                ! placeholder "Search"
+                ! ariaLabel "Search"
+                ! name "name"
+              button
+                ! class_ "btn btn-outline-success my-2 my-sm-0"
+                ! type_ "submit" $ "Search"
 
 monthBadge :: Month -> Html
 monthBadge m = span ! class_ "badge badge-info" $ toHtml (monthName m)
 
 foodElement :: Food -> Html
-foodElement item = div ! class_ "card" $ do
-  div ! class_ "card-body" $ do
-    h5 ! class_ "card-title" $ toHtml (foodName item)
-    h6 ! class_ "card-subtitle" $ toHtml (foodCategory item)
-    p ! class_ "card-text" $ do
-      toHtml (map monthBadge (foodAvailability item))
+foodElement item = div ! class_ "card-container col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" $ do
+  div ! class_ "card" $ do
+    div ! class_ "card-body" $ do
+      h5 ! class_ "card-title" $ toHtml (foodName item)
+      h6 ! class_ "card-subtitle" $ toHtml (foodCategory item)
+      p ! class_ "card-text" $ do
+        toHtml (map monthBadge (foodAvailability item))
