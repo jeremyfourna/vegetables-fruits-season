@@ -1,11 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Web.Components (navBar) where
+module Web.Components (navBar, foodElement) where
 
 import Prelude hiding (div, id, span)
-import Text.Blaze.Html5 (Html, a, body, button, dataAttribute, div, docTypeHtml, form, h1, h2, input, li, link, meta, nav, p, script, span, style, title, ul, (!))
-import Text.Blaze.Html5.Attributes (charset, class_, content, href, httpEquiv, id, lang, media, name, placeholder, rel, src, type_)
+import Text.Blaze.Html (toHtml)
+import Text.Blaze.Html5 (Html, a, body, button, dataAttribute, div, docTypeHtml, form, h1, h2, h3, h4, h5, h6, input, li, link, meta, nav, p, script, span, style, title, ul, (!))
+import Text.Blaze.Html5.Attributes (action, charset, class_, content, href, httpEquiv, id, lang, media, method, name, placeholder, rel, src, type_)
 import Text.Blaze.Internal (Attribute, AttributeValue, MarkupM( Leaf ), attribute)
+import Web.Data.Foods (Food, Month, foodName, foodCategory, foodAvailability, monthIndex, monthName)
 
 ariaControls :: AttributeValue -> Attribute
 ariaControls = attribute "aria-controls" " aria-controls=\""
@@ -80,12 +82,27 @@ navBar =
             a
               ! class_ "nav-link disabled"
               ! href "#" $ "Disabled"
-        form ! class_ "form-inline my-2 my-lg-0" $ do
-          input
-            ! class_ "form-control mr-sm-2"
-            ! type_ "search"
-            ! placeholder "Search"
-            ! ariaLabel "Search"
-          button
-            ! class_ "btn btn-outline-success my-2 my-sm-0"
-            ! type_ "submit" $ "Search"
+        form
+          ! class_ "form-inline my-2 my-lg-0"
+          ! action "/search"
+          ! method "GET" $ do
+            input
+              ! class_ "form-control mr-sm-2"
+              ! type_ "search"
+              ! placeholder "Search"
+              ! ariaLabel "Search"
+              ! name "name"
+            button
+              ! class_ "btn btn-outline-success my-2 my-sm-0"
+              ! type_ "submit" $ "Search"
+
+monthBadge :: Month -> Html
+monthBadge m = span ! class_ "badge badge-info" $ toHtml (monthName m)
+
+foodElement :: Food -> Html
+foodElement item = div ! class_ "card" $ do
+  div ! class_ "card-body" $ do
+    h5 ! class_ "card-title" $ toHtml (foodName item)
+    h6 ! class_ "card-subtitle" $ toHtml (foodCategory item)
+    p ! class_ "card-text" $ do
+      toHtml (map monthBadge (foodAvailability item))

@@ -3,11 +3,11 @@
 
 module Lib
   ( foods
-  , foodName
   , home
   , login
   , monthName
   , post
+  , searchFoodName
   ) where
 
 import Data.Aeson (FromJSON, ToJSON)
@@ -44,8 +44,8 @@ post = get "/post" $ json $ Post 1 "Yello world"
 foods :: ScottyM()
 foods = get "/foods" $ json allFoods
 
-foodName :: ScottyM()
-foodName = get "/foods/:name" $ do
+searchFoodName :: ScottyM()
+searchFoodName = get "/search" $ do
   name <- param "name"
   json (filter (matchesName name) allFoods)
 

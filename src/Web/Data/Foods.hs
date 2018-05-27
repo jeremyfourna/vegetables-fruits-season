@@ -2,6 +2,8 @@
 
 module Web.Data.Foods where
 
+import Data.Char (toLower)
+import Data.List (isInfixOf, map)
 import GHC.Generics
 
 data Food = Food
@@ -15,7 +17,7 @@ allFoods :: [Food]
 allFoods = vegetables
 
 matchesName :: String -> Food -> Bool
-matchesName name food = foodName food == name
+matchesName name food = map toLower name `isInfixOf` map toLower (foodName food)
 
 data Month = Month
   { monthName :: String

@@ -9,6 +9,8 @@ import Data.Text.Lazy (Text)
 
 layoutCss :: Text
 layoutCss = render $ do
-  body ? paddingTop (px 70)
-  element ".jumbotron" ? (textAlign $ alignSide sideCenter)
-  element "#gmail" ? (marginLeft $ px 10)
+  element ".badge" ? do
+    marginLeft $ px 1
+    marginRight $ px 1
+  element "#app" ? do
+    marginTop $ px 10

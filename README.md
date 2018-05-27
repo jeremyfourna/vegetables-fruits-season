@@ -3,7 +3,16 @@
 ## Intallation
 
 1. `git clone` or fork this repo
-2. `cd scotty-starter-bootstrap`
+2. `cd vegetables-fruits-season`
 3. `stack setup`
-4. `stack build`
-5. `stack exec vegetables-fruits-season-exe`
+
+If you do not have `stack` or `haskell` installed on your computer, go to those ressources
+
+* https://www.haskell.org/platform/
+* https://docs.haskellstack.org/en/stable/README/
+
+## Usage
+
+1. `stack build`
+2. `stack exec vegetables-fruits-season-exe`
+3. Open in your browser http://localhost:3000/

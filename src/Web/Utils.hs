@@ -18,16 +18,3 @@ blaze = html . renderHtml
 
 currentDate :: IO (Integer, Int, Int) -- :: (year,month,day)
 currentDate = getCurrentTime >>= return . toGregorian . utctDay
-
-getSnd :: (a, b, c) -> b
-getSnd (year, month, day) = month
-
-getFst :: (a, b, c) -> a
-getFst (year, month, day) = year
-
-getTrd :: (a, b, c) -> c
-getTrd (year, month, day) = day
-
-getMonth = do
-  date <- currentDate
-  getSnd date
